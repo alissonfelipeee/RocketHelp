@@ -17,6 +17,6 @@ export function Input({ ...rest }: IInputProps) {
         bg: "gray.700",
       }}
       {...rest}
-    r/>
+    />
   );
 }
