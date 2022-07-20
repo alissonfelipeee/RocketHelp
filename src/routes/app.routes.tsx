@@ -7,7 +7,7 @@ const { Navigator, Screen } = createNativeStackNavigator();
 
 export function AppRoutes() {
   return (
-    <Navigator screenOptions={{ headerShown: false }}>
+    <Navigator screenOptions={{ headerShown: false, animation: 'slide_from_bottom' }}>
       <Screen name="Home" component={Home} />
       <Screen name="Details" component={Details} />
       <Screen name="Register" component={Register} />

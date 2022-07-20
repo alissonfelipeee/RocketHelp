@@ -1,10 +1,19 @@
 {
   "expo": {
-    "name": "ignite-lab-rn",
-    "slug": "ignite-lab-rn",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "name": "Rocket Help",
+    "icon": "./src/assets/logo.png",
+    "owner": "dlzz1",
+    "slug": "rockethelp",
+    "version": "1.0.1",
+    "assetBundlePatterns": ["**/*"],
+    "plugins": ["@react-native-firebase/app"],
+    "android": {
+      "package": "com.rockethelp.dlzz1",
+      "googleServicesFile": "./google-services.json"
+    },
+    "ios": {
+      "bundleIdentifier": "com.rockethelp.dlzz1",
+      "googleServicesFile": "./GoogleService-Info.plist"
+    }
   }
 }

@@ -4,16 +4,27 @@ import Logo from "../assets/logo_primary.svg";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { Envelope, Key } from "phosphor-react-native";
+import auth from "@react-native-firebase/auth";
+import { Alert } from "react-native";
+import { notifyAuthError } from "../helpers/authErros";
 
 export function SingIn() {
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { colors } = useTheme();
 
   function handleSignIn() {
-    console.log(email, password);
-    setEmail("");
-    setPassword("");
+    if (!email || !password)
+      return Alert.alert("Entrar", "Informe o e-mail e senha.");
+
+    setIsLoading(false);
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch((error) => {
+        notifyAuthError(error.code);
+      });
+    setIsLoading(false);
   }
 
   return (
@@ -42,7 +53,8 @@ export function SingIn() {
         title="Entrar"
         w="full"
         mt={8}
-        isDisabled={!(email.length > 0 && password.length > 0)}
+        isLoading={isLoading}
+        isDisabled={!(email && password)}
         onPress={handleSignIn}
       />
     </VStack>
