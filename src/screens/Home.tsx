@@ -1,4 +1,4 @@
-import auth from "@react-native-firebase/auth";
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -11,7 +11,7 @@ import {
   useTheme,
   VStack,
 } from "native-base";
-import { ChatTeardropText, SignOut } from "phosphor-react-native";
+import { ChatTeardropText, IdentificationBadge } from "phosphor-react-native";
 import { useEffect, useState } from "react";
 import { Alert } from "react-native";
 
@@ -29,15 +29,20 @@ export function Home() {
   const [orders, setOrders] = useState<OrderProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
   const { colors } = useTheme();
 
   function handleNewOrder() {
-    navigation.navigate("Register");
+    navigate("RegisterOrder");
   }
 
   function handleOpenDetails(orderId: string) {
-    navigation.navigate("Details", { orderId });
+    navigate("Details", { orderId });
+  }
+
+  function handleOpenProfile() {
+    const user = auth().currentUser;
+    navigate("Profile", { user });
   }
 
   function handleLogout() {
@@ -46,7 +51,7 @@ export function Home() {
       .catch((error) => {
         console.log(error);
         return Alert.alert(
-          "Sair",
+          "Desconectar",
           "Não foi póssivel desconectar no momento, tente novamente mais tarde."
         );
       });
@@ -88,8 +93,8 @@ export function Home() {
       >
         <Logo />
         <IconButton
-          icon={<SignOut size={26} color={colors.gray[300]} />}
-          onPress={handleLogout}
+          icon={<IdentificationBadge size={26} color={colors.gray[300]} />}
+          onPress={handleOpenProfile}
         />
       </HStack>
       <VStack flex={1} px={6}>

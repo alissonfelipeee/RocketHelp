@@ -1,30 +1,19 @@
-import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { NavigationContainer } from "@react-navigation/native";
-import { useState, useEffect } from "react";
 import { Loading } from "../components/Loading";
-import { SingIn } from "../screens/SingIn";
+import { useAuthContext } from "../contexts/AuthContext";
 import { AppRoutes } from "./app.routes";
+import { AuthRoutes } from "./auth.routes";
 
-export function Routes() {
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<FirebaseAuthTypes.User>();
+export const Routes: React.FC = () => {
+  const { isUserLoading, isAuthenticated } = useAuthContext();
 
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged((response) => {
-      setUser(response);
-      setLoading(false);
-    });
-
-    return subscriber;
-  }, []);
-
-  if (loading) {
+  if (isUserLoading) {
     return <Loading />;
   }
 
   return (
     <NavigationContainer>
-      {user ? <AppRoutes /> : <SingIn />}
+      {isAuthenticated ? <AppRoutes /> : <AuthRoutes />}
     </NavigationContainer>
   );
-}
+};

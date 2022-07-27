@@ -1,10 +1,13 @@
 {
   "expo": {
-    "name": "Rocket Help",
+    "name": "RocketHelp",
     "icon": "./src/assets/logo.png",
     "owner": "dlzz1",
     "slug": "rockethelp",
-    "version": "1.0.1",
+    "version": "1.0.2",
+    "splash": {
+      "backgroundColor": "#121214"
+    },
     "assetBundlePatterns": ["**/*"],
     "plugins": ["@react-native-firebase/app"],
     "android": {
@@ -14,6 +17,7 @@
     "ios": {
       "bundleIdentifier": "com.rockethelp.dlzz1",
       "googleServicesFile": "./GoogleService-Info.plist"
-    }
+    },
+    "jsEngine": "hermes"
   }
 }
